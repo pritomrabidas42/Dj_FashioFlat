@@ -42,6 +42,18 @@ INSTALLED_APPS = [
     'accounts',
 ]
 
+
+ACCOUNT_PHONE_NUMBER_REQUIRED = True   # optional, to make phone mandatory
+SOCIALACCOUNT_QUERY_EMAIL = True
+ACCOUNT_EMAIL_VERIFICATION = 'none'
+ACCOUNT_AUTHENTICATION_METHOD = 'username_email'
+ACCOUNT_EMAIL_REQUIRED = True
+
+AUTHENTICATION_BACKENDS = [
+    'accounts.backends.EmailBackend',  # if you’re using email login
+    'django.contrib.auth.backends.ModelBackend',
+]
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -90,6 +102,8 @@ DATABASES = {
     'DISABLE_SERVER_SIDE_CURSORS': True,
   }
 }
+
+
 
 
 # Password validation
@@ -141,10 +155,10 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
-# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-# EMAIL_HOST = 'smtp.gmail.com'
-# EMAIL_PORT = 587
-# EMAIL_USE_TLS = True
-# EMAIL_HOST_USER = 'pritomrabidas102@gmail.com'
-# EMAIL_HOST_PASSWORD = 'glme pwdo ljqv kcyt' 
-# DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'pritomrabidas102@gmail.com'
+EMAIL_HOST_PASSWORD = 'glme pwdo ljqv kcyt' 
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
