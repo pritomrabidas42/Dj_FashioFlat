@@ -1,0 +1,65 @@
+{% load static %}
+
+{% block content %}
+<div class="container py-5">
+  <div class="row">
+    <div class="col-md-6">
+      <img src="{{ product.image1.url }}" alt="{{ product.title }}" width="80px" height="100px" class="img-fluid mb-3">
+      <div class="d-flex gap-2">
+        {% if product.image2 %}<img src="{{ product.image2.url }}" alt="{{ product.title }}" width="80px" height="100px">{% endif %}
+        {% if product.image3 %}<img src="{{ product.image3.url }}" alt="{{ product.title }}" width="80px" height="100px">{% endif %}
+        {% if product.image4 %}<img src="{{ product.image4.url }}" alt="{{ product.title }}" width="80px" height="100px">{% endif %}
+      </div>
+    </div>
+
+    <div class="col-md-6">
+      <h2>{{ product.title }}</h2>
+      <p>Price: ${{ product.price }}</p>
+      <p>SKU: {{ product.sku }}</p>
+      <p>Category: {{ product.get_category_display }}</p>
+      <p>{{ product.description }}</p>
+      <p>Avg Rating: {{ product.average_rating }}/5</p>
+
+      {% if user.is_authenticated %}
+        <form method="post" action="{% url 'purchase_product' product.id %}">
+          {% csrf_token %}
+          {{ purchase_form.as_p }}
+          <button class="btn btn-dark">Buy Now</button>
+        </form>
+      {% else %}
+        <a href="{% url 'login' %}" class="btn btn-warning">Login to Buy</a>
+      {% endif %}
+
+      <button class="btn btn-outline-danger mt-2">♡ Wishlist</button>
+    </div>
+  </div>
+
+  <hr>
+
+  <h4>Reviews</h4>
+  {% for review in reviews %}
+    <div class="mb-2">
+      <strong>{{ review.user.username }}</strong> 
+      - <span class="text-warning">{% for i in "12345" %}{% if forloop.counter <= review.rating %}★{% else %}☆{% endif %}{% endfor %}</span>
+      <p>{{ review.comment }}</p>
+    </div>
+  {% empty %}
+    <p>No reviews yet.</p>
+  {% endfor %}
+
+  {% if user.is_authenticated %}
+    {% if has_purchased %}
+      <h5 class="mt-4">Write a Review</h5>
+      <form method="post">
+        {% csrf_token %}
+        {{ review_form.as_p }}
+        <button type="submit" name="review_submit" class="btn btn-primary">Submit Review</button>
+      </form>
+    {% else %}
+      <p class="text-muted">You must buy the product to leave a review.</p>
+    {% endif %}
+  {% else %}
+    <p><a href="{% url 'login' %}">Login</a> to write a review.</p>
+  {% endif %}
+</div>
+{% endblock %}
