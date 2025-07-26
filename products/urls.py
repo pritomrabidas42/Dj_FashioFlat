@@ -1,14 +1,9 @@
+# products/urls.py
 from django.urls import path
 from .views import *
-from django.conf import settings
-from django.conf.urls.static import static
 
 urlpatterns = [
-    path('', product_list, name='product_list'),
-    path('products/<int:pk>/', product_detail_view, name='product_detail'),
-    path('products/<int:pk>/buy/', purchase_product, name='purchase_product'),
+    path('', product_list, name='product-list'),
+    path('product/<int:pk>/', product_detail, name='product-detail'),
+    path('product/<int:product_id>/review/', submit_review, name='submit-review'),
 ]
-
-if settings.DEBUG:
-    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 
 from pathlib import Path
-import os
+
 # import dj_database_url
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'accounts',
     'products',
+    'cart',
     'orders',
 ]
 
@@ -95,8 +96,8 @@ DATABASES = {
     'ENGINE': 'django.db.backends.postgresql',
     'NAME': 'neondb',
     'USER': 'neondb_owner',
-    'PASSWORD': 'npg_Xl91bcKShNiO',
-    'HOST': 'ep-purple-sound-a11c8gd4-pooler.ap-southeast-1.aws.neon.tech',
+    'PASSWORD': 'npg_iPLHE4cnNM7J',
+    'HOST': 'ep-noisy-mud-a1q0a5l2-pooler.ap-southeast-1.aws.neon.tech',
     'PORT':  "5432",
     'OPTIONS': {
       'sslmode': 'require',
@@ -142,13 +143,17 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
-STATIC_URL = 'static/'
+import os
+
+STATIC_URL = '/static/'
+
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+# MEDIA FILES
 MEDIA_URL = '/media/'
-MEDIA_ROOT = BASE_DIR / 'media'
-STATICFILES_DIRS = [
-    BASE_DIR / "static",
-]
-STATIC_ROOT = BASE_DIR / "staticfiles"
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # Default primary key field type

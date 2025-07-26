@@ -1,22 +1,55 @@
-<!-- templates/products/product_list.html -->
- {% load static %}
-<h1>All Products</h1>
+{% extends 'base.html' %}
+{% block content %}
+<h1 class="text-3xl font-bold mb-6">All Products</h1>
 
-{% for product in products %}
-  <div style="border:1px solid #ddd; padding:10px; margin-bottom:15px;">
-    <div class="col-md-6">
-      <img src="{{ product.image1.url }}" alt="{{ product.title }}" width="80px" height="100px" style="width:80px; height:100px; object-fit:cover;" class="img-fluid mb-3">
-      <div class="d-flex gap-2">
-        {% if product.image2 %}<img src="{{ product.image2.url }}" alt="{{ product.title }}" width="80px" height="100px">{% endif %}
-        {% if product.image3 %}<img src="{{ product.image3.url }}" alt="{{ product.title }}" width="80px" height="100px">{% endif %}
-        {% if product.image4 %}<img src="{{ product.image4.url }}" alt="{{ product.title }}" width="80px" height="100px">{% endif %}
-      </div>
+<!-- Search and Filter Form -->
+<form method="GET" action="" class="mb-6 flex flex-wrap gap-2">
+  <input type="text" name="q" placeholder="Search by name or description" value="{{ query }}"
+         class="border p-2 rounded w-full max-w-xs">
+
+  <input type="number" name="min_price" placeholder="Min Price" value="{{ request.GET.min_price }}"
+         class="border p-2 rounded w-32">
+
+  <input type="number" name="max_price" placeholder="Max Price" value="{{ request.GET.max_price }}"
+         class="border p-2 rounded w-32">
+
+  <select name="min_rating" class="border p-2 rounded">
+    <option value="">Min Rating</option>
+    {% for i in "12345" %}
+      <option value="{{ i }}" {% if request.GET.min_rating == i %}selected{% endif %}>{{ i }} stars</option>
+    {% endfor %}
+  </select>
+
+  <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded">Apply</button>
+</form>
+
+<!-- Product Grid -->
+<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+  {% for product in pro %}
+    <div class="border rounded p-4 shadow hover:shadow-lg transition">
+      <a href="{% url 'product-detail' product.pk %}">
+        <img src="{{ product.image.url }}" alt="{{ product.name }}" class="w-full h-48 object-cover mb-2 rounded">
+        <h2 class="text-xl font-semibold">{{ product.name }}</h2>
+        <p class="text-gray-700">${{ product.price }}</p>
+
+        <!-- Show average rating -->
+        <div class="flex items-center">
+          {% with product.review_set.all as reviews %}
+            {% if reviews %}
+              {% with total=0 %}
+                {% for r in reviews %}{% widthratio r.rating 1 1 as rt %}{% widthratio total|add:rt 1 1 as total %}{% endfor %}
+                {% widthratio total reviews|length 1 as avg %}
+                <span class="text-yellow-500">{{ avg }}/5 stars</span>
+              {% endwith %}
+            {% else %}
+              <span class="text-gray-400">No ratings yet</span>
+            {% endif %}
+          {% endwith %}
+        </div>
+      </a>
     </div>
-    <h3>{{ product.title }}</h3>
-    <p>SKU: {{ product.sku }}</p>
-    <p>Category: {{ product.get_category_display }}</p>
-    <p>Price: ${{ product.price }}</p>
-    <a href="{% url 'product_detail' product.pk %}">View Details</a> |
-    
-  </div>
-{% endfor %}
+  {% empty %}
+    <p>No products found.</p>
+  {% endfor %}
+</div>
+{% endblock %}
