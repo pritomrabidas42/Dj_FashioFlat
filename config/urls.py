@@ -26,11 +26,11 @@ urlpatterns = [
     path('cart/', include('cart.urls')),       # add to cart, cart page
     path('order/', include('orders.urls')),
     path('payment/', include('payments.urls')), 
-    path('api/products/', include('products.api_urls')),
-    path('api/accounts/', include('accounts.api_urls')),
-    path('api/cart/', include('cart.api_urls')),
-    path('api/orders/', include('orders.api_urls')),
-    path('api/payments/', include('payments.api_urls')),
+    path('api/products/', include('products.api.api_urls')),
+    path('api/accounts/', include('accounts.api.api_urls')),
+    path('api/cart/', include('cart.api.api_urls')),
+    path('api/orders/', include('orders.api.api_urls')),
+    path('api/payments/', include('payments.api.api_urls')),
 ]
 
 if settings.DEBUG:
