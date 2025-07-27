@@ -28,6 +28,11 @@ class Order(models.Model):
     total_price = models.DecimalField(max_digits=12, decimal_places=2)
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='pending')
     created_at = models.DateTimeField(default=timezone.now)
+    is_paid = models.BooleanField(default=False)
+    transaction_id = models.CharField(max_length=100, null=True, blank=True)
+
+    def get_total(self):
+        return sum(item.price * item.quantity for item in self.items.all()) 
 
     def __str__(self):
         return f"Order #{self.id} by {self.user}"

@@ -13,5 +13,22 @@
     <textarea name="street" placeholder="Street Address" class="w-full border p-2" required></textarea>
     <button type="submit" class="bg-indigo-600 text-white px-4 py-2 rounded">Place Order</button>
   </form>
+  <div class="bg-white p-6 rounded shadow">
+    <h3 class="text-xl mb-2">Order Summary</h3>
+    <ul class="mb-4">
+      {% for item in order.items.all %}
+      <li>{{ item.product.name }} - {{ item.quantity }} x ${{ item.product.price }}</li>
+      {% endfor %}
+    </ul>
+
+    <p class="font-semibold">Total: ${{ order.get_total }}</p>
+
+    <form action="{% url 'initiate_payment' order.id %}" method="post">
+      {% csrf_token %}
+      <button type="submit" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded mt-4">
+        Pay with SSLCommerz
+      </button>
+    </form>
+  </div>
 </div>
 {% endblock %}

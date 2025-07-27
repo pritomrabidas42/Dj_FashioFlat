@@ -24,7 +24,8 @@ urlpatterns = [
     path('accounts/', include('accounts.urls')),
      path('', include('products.urls')),   # product detail
     path('cart/', include('cart.urls')),       # add to cart, cart page
-    path('order/', include('orders.urls')),  
+    path('order/', include('orders.urls')),
+    path('payment/', include('payments.urls')),  # payment initiation and callbacks  
 ]
 
 if settings.DEBUG:

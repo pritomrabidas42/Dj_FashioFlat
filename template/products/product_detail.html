@@ -4,23 +4,22 @@
   <h2 class="text-2xl font-bold">{{ product.name }}</h2>
   <p class="text-gray-500">SKU: {{ product.sku }}</p>
   <p class="text-xl">$ {{ product.price }}</p>
-
+  <img src="{{ product.image.url }}" alt="{{ product.name }}" width="100px" height="100px"
+    class="w-full h-48 object-cover mb-2 rounded">
   <form method="POST" action="{% url 'add-to-cart' product.id %}" class="mt-4">
     {% csrf_token %}
-    <select name="size" class="border p-2" required>
-      {% for stock in size_stocks %}
-        {% if stock.stock > 0 %}
-          <option value="{{ stock.size }}">{{ stock.size }} ({{ stock.stock }})</option>
-        {% else %}
-          <option disabled>{{ stock.size }} - Out of Stock</option>
-        {% endif %}
-      {% endfor %}
+    <label for="size" class="block font-medium mb-1">Select Size</label>
+    <select name="size" required>
+      <option value="" disabled selected>Select a size</option>
+      <option value="M">M (10)</option>
+      <option value="L">L (5)</option>
+      <option value="XL">XL - Out of Stock</option>
     </select>
     <input type="number" name="quantity" value="1" min="1" class="border p-2 w-20 mx-2">
     {% if user.is_authenticated %}
-      <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded">Add to Cart</button>
+    <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded">Add to Cart</button>
     {% else %}
-      <p class="text-red-500 mt-2">Please login to add to cart</p>
+    <p class="text-red-500 mt-2">Please login to add to cart</p>
     {% endif %}
   </form>
 </div>
