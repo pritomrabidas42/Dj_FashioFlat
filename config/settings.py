@@ -44,8 +44,14 @@ INSTALLED_APPS = [
     'cart',
     'orders',
     'payments',
+    'rest_framework',
 ]
 
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ),
+}
 
 ACCOUNT_PHONE_NUMBER_REQUIRED = True   # optional, to make phone mandatory
 SOCIALACCOUNT_QUERY_EMAIL = True

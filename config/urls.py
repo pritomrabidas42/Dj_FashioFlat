@@ -25,7 +25,12 @@ urlpatterns = [
      path('', include('products.urls')),   # product detail
     path('cart/', include('cart.urls')),       # add to cart, cart page
     path('order/', include('orders.urls')),
-    path('payment/', include('payments.urls')),  # payment initiation and callbacks  
+    path('payment/', include('payments.urls')), 
+    path('api/products/', include('products.api_urls')),
+    path('api/accounts/', include('accounts.api_urls')),
+    path('api/cart/', include('cart.api_urls')),
+    path('api/orders/', include('orders.api_urls')),
+    path('api/payments/', include('payments.api_urls')),
 ]
 
 if settings.DEBUG:
