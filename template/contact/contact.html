@@ -1,0 +1,20 @@
+<!-- contact/templates/contact/contact.html -->
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Contact Us</title>
+</head>
+<body>
+  <h2>Contact Form</h2>
+  <form method="POST">
+    {% csrf_token %}
+    <label>Name:</label><br />
+    <input type="text" name="name"><br />
+    <label>Email:</label><br />
+    <input type="email" name="email"><br />
+    <label>Message:</label><br />
+    <textarea name="message"></textarea><br />
+    <button type="submit">Send</button>
+  </form>
+</body>
+</html>

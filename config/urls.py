@@ -22,10 +22,12 @@ from django.conf.urls.static import static
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/', include('accounts.urls')),
-     path('', include('products.urls')),   # product detail
-    path('cart/', include('cart.urls')),       # add to cart, cart page
+     path('', include('products.urls')),   
+    path('cart/', include('cart.urls')),       
     path('order/', include('orders.urls')),
-    path('payment/', include('payments.urls')), 
+    path('payment/', include('payments.urls')),
+    path('contact/', include('contact.urls')),  
+    path('api/contact/', include('contact.api.api_urls')),
     path('api/products/', include('products.api.api_urls')),
     path('api/accounts/', include('accounts.api.api_urls')),
     path('api/cart/', include('cart.api.api_urls')),
