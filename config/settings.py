@@ -18,12 +18,12 @@ load_dotenv()
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = 'django-insecure--i^38#jw#9v_zy=ogm1&a=@^gya-f1%4=*tdsip3=q^+9o7gl9'
+# SECRET_KEY = 'django-insecure--i^38#jw#9v_zy=ogm1&a=@^gya-f1%4=*tdsip3=q^+9o7gl9'
 # DEBUG = config("DEBUG", default=False, cast=bool)
 # ALLOWED_HOSTS = config("ALLOWED_HOSTS", default="*").split(",")
-# SECRET_KEY = os.environ.get('SECRET_KEY', default='your secret key')
-DEBUG = False
-ALLOWED_HOSTS = ['*']
+SECRET_KEY = config('SECRET_KEY')
+DEBUG = False if config('DEBUG', default='False') == 'False' else True
+ALLOWED_HOSTS = config("ALLOWED_HOSTS", default="*").split(",")
 
 
 AUTH_USER_MODEL = 'accounts.CustomUser'
@@ -149,11 +149,11 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 # CSRF_TRUSTED_ORIGINS = [f"https://{ALLOWED_HOSTS[0]}"]
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-# RENDER_EXTERNAL_HOSTNAME = os.environ.get('RENDER_EXTERNAL_HOSTNAME')
-# if RENDER_EXTERNAL_HOSTNAME:
-#     CSRF_TRUSTED_ORIGINS = [f"https://{RENDER_EXTERNAL_HOSTNAME}"]
-# else:
-#     CSRF_TRUSTED_ORIGINS = []
+RENDER_EXTERNAL_HOSTNAME = os.environ.get('RENDER_EXTERNAL_HOSTNAME')
+if RENDER_EXTERNAL_HOSTNAME:
+    CSRF_TRUSTED_ORIGINS = [f"https://{RENDER_EXTERNAL_HOSTNAME}"]
+else:
+    CSRF_TRUSTED_ORIGINS = []
     
 # if not DEBUG:
 #     # Tell Django to copy static assets into a path called `staticfiles` (this is specific to Render)
@@ -168,6 +168,6 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = 'pritomrabidas102@gmail.com'
-EMAIL_HOST_PASSWORD = 'glme pwdo ljqv kcyt' 
+EMAIL_HOST_USER = config('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
