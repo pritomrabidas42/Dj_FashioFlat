@@ -10,7 +10,7 @@ services:
     name: mysite
     runtime: python
     buildCommand: './build.sh'
-    startCommand: 'python -m gunicorn config.asgi:application -k uvicorn.workers.UvicornWorker'
+    startCommand: 'gunicorn config.wsgi:application'
     envVars:
       - key: DATABASE_URL
         fromDatabase:
@@ -18,5 +18,7 @@ services:
           property: connectionString
       - key: SECRET_KEY
         generateValue: true
+      - key: DJANGO_SETTINGS_MODULE
+        value: config.settings
       - key: WEB_CONCURRENCY
         value: 4
