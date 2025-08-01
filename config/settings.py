@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'payments',
     'contact',
     'rest_framework',
+    'django_extensions',
 ]
 
 REST_FRAMEWORK = {
@@ -144,7 +145,12 @@ USE_TZ = True
 import os
 
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
+STATICFILES_DIRS = [
+    BASE_DIR / 'static',
+]
+
+
+
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 if not DEBUG:
@@ -154,7 +160,6 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
     
@@ -167,3 +172,8 @@ EMAIL_USE_TLS = True
 EMAIL_HOST_USER = config('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+
+
+SECURE_SSL_REDIRECT = False  # Localhost এ False রাখো
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
