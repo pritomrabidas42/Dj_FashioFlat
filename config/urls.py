@@ -34,6 +34,7 @@ urlpatterns = [
     path('api/cart/', include('cart.api.api_urls')),
     path('api/orders/', include('orders.api.api_urls')),
     path('api/payments/', include('payments.api.api_urls')),
+    path('api/bkash/', include('bkash.api.api_urls')),
 ]
 
 if settings.DEBUG:
