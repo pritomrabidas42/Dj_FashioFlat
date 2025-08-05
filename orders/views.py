@@ -48,7 +48,8 @@ def checkout(request):
             stock.save()
             item.delete()
 
-        messages.success(request, "Order placed successfully!")
-        return redirect('product-list')
+        # ✅ Redirect to bKash payment page
+        return redirect('bkash_payment', order_id=order.id)
 
     return render(request, 'orders/checkout.html', {'items': items})
+

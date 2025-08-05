@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="max-w-md mx-auto mt-10 p-6 border rounded shadow">
+    <h2 class="text-2xl font-bold mb-4">bKash Payment</h2>
+    <p class="mb-4">Order ID: {{ order.id }} | Total: ${{ order.total_price }}</p>
+
+    <form method="post">
+        {% csrf_token %}
+        <div class="mb-4">
+            {{ form.phone_number.label_tag }}
+            {{ form.phone_number }}
+        </div>
+        <div class="mb-4">
+            {{ form.transaction_id.label_tag }}
+            {{ form.transaction_id }}
+        </div>
+        <button type="submit" class="bg-pink-500 hover:bg-pink-600 text-white font-semibold py-2 px-4 rounded">
+            Confirm Payment
+        </button>
+    </form>
+    <a href="{% url 'bkash_payment_cancel' %}" class="text-red-500 block mt-4">Cancel Payment</a>
+</div>
+{% endblock %}

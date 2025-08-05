@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'orders',
     'payments',
     'contact',
+    'bkash',
     'rest_framework',
     'django_extensions',
 ]
@@ -162,7 +163,13 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-    
+BKASH_APP_KEY = 'your_app_key_here'
+BKASH_APP_SECRET = 'your_app_secret_here'
+BKASH_USERNAME = 'your_username_here'
+BKASH_PASSWORD = 'your_password_here'
+
+# Sandbox URLs (Production হলে আলাদা URL হবে)
+BKASH_BASE_URL = 'https://tokenized.sandbox.bka.sh/v1.2.0-beta/tokenized/checkout/'   
 
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'

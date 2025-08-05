@@ -1,0 +1,8 @@
+<h2>Redirecting to bKash Payment Gateway...</h2>
+<form id="bkashPaymentForm" method="POST" action="https://tokenized.sandbox.bka.sh/checkout/payment/redirect">
+    <input type="hidden" name="paymentID" value="{{ paymentID }}">
+    <button type="submit">Click here if not redirected automatically</button>
+</form>
+<script>
+    document.getElementById('bkashPaymentForm').submit();
+</script>

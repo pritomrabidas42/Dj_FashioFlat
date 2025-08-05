@@ -27,6 +27,7 @@ urlpatterns = [
     path('order/', include('orders.urls')),
     path('payment/', include('payments.urls')),
     path('contact/', include('contact.urls')),
+    path('bkash/', include('bkash.urls')),
     path('api/contact/', include('contact.api.api_urls')),
     path('api/products/', include('products.api.api_urls')),
     path('api/accounts/', include('accounts.api.api_urls')),
